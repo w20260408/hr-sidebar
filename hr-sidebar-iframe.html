@@ -9,8 +9,8 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
       background: #f5f6f7;
-      padding: 12px;
-      width: 320px;
+      padding: 10px;
+      width: 100%;
       min-height: 100vh;
     }
     .welcome-section {
@@ -200,23 +200,32 @@
   <div class="footer-tip">回复内容基于《金万维员工手册》2026年版</div>
 
   <script>
+    // 自动同步高度给父页面
+    function syncHeight() {
+      var height = document.body.scrollHeight;
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({
+          type: 'hrSidebarResize',
+          height: height
+        }, '*');
+      }
+    }
+    window.addEventListener('load', syncHeight);
+    window.addEventListener('resize', syncHeight);
+    // DOM 变化时也同步
+    var observer = new MutationObserver(syncHeight);
+    observer.observe(document.body, { childList: true, subtree: true });
+
     function sendMessage(text) {
-      // 方式1：postMessage给父页面
       if (window.parent && window.parent !== window) {
         window.parent.postMessage({ type: 'sendChatMessage', content: text }, '*');
       }
-      // 方式2：如果帮我吧提供了全局API
-      if (window.parent && window.parent.Bangwo8 && window.parent.Bangwo8.sendMessage) {
-        window.parent.Bangwo8.sendMessage(text);
-      }
-      // 方式3：尝试直接操作父页面输入框
       try {
         var input = window.parent.document.querySelector('textarea, input[type="text"], [contenteditable="true"]');
         if (input) {
           input.value = text;
           input.focus();
-          var event = new Event('input', { bubbles: true });
-          input.dispatchEvent(event);
+          input.dispatchEvent(new Event('input', { bubbles: true }));
         }
       } catch(e) {}
     }
