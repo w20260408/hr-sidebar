@@ -167,49 +167,118 @@
     }
   `;
 
-  // 发送消息函数
+  // 发送消息函数 - 增强版
   function sendToChat(text) {
-    // 查找聊天输入框
-    const selectors = [
-      'textarea[placeholder*="输入"]',
-      'textarea[placeholder*="message"]',
-      'input[name*="message"]',
-      '.chat-input textarea',
-      '#messageInput',
-      '[contenteditable="true"]'
-    ];
-
-    for (const selector of selectors) {
-      const input = document.querySelector(selector);
-      if (input) {
-        input.value = text;
-        input.focus();
-
-        // 触发input事件
-        const event = new Event('input', { bubbles: true });
-        input.dispatchEvent(event);
-
-        // 尝试触发提交
-        const submitEvent = new KeyboardEvent('keydown', {
-          key: 'Enter',
-          code: 'Enter',
-          keyCode: 13,
-          which: 13,
-          bubbles: true
-        });
-        input.dispatchEvent(submitEvent);
-
-        return true;
-      }
-    }
-
+    console.log('[HR助手] 准备发送消息:', text);
+    
     // 尝试window.parent
     if (window.parent && window.parent !== window) {
       try {
         window.parent.postMessage({ type: 'HRSidebarSendMessage', content: text }, '*');
-      } catch(e) {}
+        console.log('[HR助手] 已通过postMessage发送');
+      } catch(e) {
+        console.log('[HR助手] postMessage失败:', e);
+      }
     }
-
+    
+    // 帮我吧聊天输入框的选择器
+    const selectors = [
+      'textarea[placeholder*="输入"]',
+      'textarea[placeholder*="问题"]',
+      '.chat-input textarea',
+      '#messageInput',
+      '.message-input',
+      'textarea.chat-textarea',
+      'div[contenteditable="true"]',
+      '.input-box textarea',
+      '.chat-footer textarea'
+    ];
+    
+    // 尝试从window.parent.document查找输入框
+    let input = null;
+    if (window.parent && window.parent.document) {
+      for (const selector of selectors) {
+        try {
+          input = window.parent.document.querySelector(selector);
+          if (input) {
+            console.log('[HR助手] 找到输入框:', selector);
+            break;
+          }
+        } catch(e) {
+          console.log('[HR助手] 选择器查询失败:', selector);
+        }
+      }
+    }
+    
+    // 如果从父窗口找不到，在当前窗口找
+    if (!input) {
+      for (const selector of selectors) {
+        input = document.querySelector(selector);
+        if (input) {
+          console.log('[HR助手] 从当前窗口找到输入框:', selector);
+          break;
+        }
+      }
+    }
+    
+    if (input) {
+      // 设置值
+      if (input.tagName === 'TEXTAREA' || input.tagName === 'INPUT') {
+        input.value = text;
+      } else if (input.contentEditable === 'true') {
+        input.innerText = text;
+      }
+      
+      // 触发输入事件
+      input.focus();
+      const inputEvent = new Event('input', { bubbles: true });
+      input.dispatchEvent(inputEvent);
+      
+      const changeEvent = new Event('change', { bubbles: true });
+      input.dispatchEvent(changeEvent);
+      
+      // 延迟点击发送按钮
+      setTimeout(() => {
+        const sendBtnSelectors = [
+          '.send-btn',
+          '.btn-send',
+          'button[type="submit"]',
+          '.chat-send',
+          '.message-send',
+          'button.send'
+        ];
+        
+        let sendBtn = null;
+        if (window.parent && window.parent.document) {
+          for (const selector of sendBtnSelectors) {
+            sendBtn = window.parent.document.querySelector(selector);
+            if (sendBtn && !sendBtn.disabled) break;
+          }
+        }
+        
+        if (sendBtn) {
+          sendBtn.click();
+          console.log('[HR助手] 已点击发送按钮');
+        } else {
+          // 回车发送
+          const enterEvent = new KeyboardEvent('keydown', {
+            key: 'Enter',
+            code: 'Enter',
+            keyCode: 13,
+            which: 13,
+            bubbles: true,
+            cancelable: true
+          });
+          input.dispatchEvent(enterEvent);
+          console.log('[HR助手] 已触发回车发送');
+        }
+      }, 100);
+      
+      return true;
+    } else {
+      console.log('[HR助手] 未找到输入框');
+    }
+    
     return false;
   }
 

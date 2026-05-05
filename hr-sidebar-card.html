@@ -1,0 +1,289 @@
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f6f7; }
+
+  .sidebar-container {
+    width: 100%;
+    padding: 12px;
+  }
+
+  /* 欢迎区 */
+  .welcome-section {
+    background: linear-gradient(135deg, #FF8C00 0%, #FFB347 100%);
+    border-radius: 12px;
+    padding: 16px 14px;
+    color: #fff;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .welcome-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .welcome-subtitle {
+    font-size: 12px;
+    opacity: 0.95;
+    line-height: 1.4;
+  }
+
+  /* 卡片通用样式 */
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .card-title::before {
+    content: "";
+    width: 3px;
+    height: 14px;
+    background: #FF8C00;
+    border-radius: 2px;
+  }
+
+  /* 本月提醒 */
+  .reminder-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .reminder-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .reminder-icon {
+    width: 24px;
+    height: 24px;
+    background: #FFF3E6;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .reminder-content {
+    flex: 1;
+  }
+  .reminder-label {
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 2px;
+  }
+  .reminder-value {
+    font-size: 13px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  /* 政策速览 */
+  .policy-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+  }
+  .policy-item:last-child {
+    margin-bottom: 0;
+  }
+  .policy-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .policy-icon {
+    font-size: 14px;
+    margin-right: 6px;
+  }
+  .policy-title {
+    font-size: 13px;
+    color: #333;
+    font-weight: 500;
+  }
+  .policy-desc {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.5;
+  }
+
+  /* 热门话题 */
+  .topic-tag {
+    display: inline-block;
+    padding: 6px 12px;
+    background: #F0F7FF;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #1677FF;
+    margin-right: 6px;
+    margin-bottom: 6px;
+  }
+
+  /* 联系HR */
+  .contact-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 8px;
+  }
+  .contact-item:last-child {
+    margin-bottom: 0;
+  }
+  .contact-icon {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+  .contact-label {
+    font-size: 11px;
+    color: #999;
+  }
+  .contact-value {
+    font-size: 12px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  /* 底部提示 */
+  .footer-tip {
+    text-align: center;
+    padding: 10px;
+    font-size: 11px;
+    color: #999;
+  }
+
+  /* 输入引导 */
+  .input-guide {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    padding: 14px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .input-guide-icon {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+  .input-guide-text {
+    font-size: 12px;
+    opacity: 0.95;
+    line-height: 1.4;
+  }
+</style>
+
+<div class="sidebar-container">
+  <!-- 欢迎区 -->
+  <div class="welcome-section">
+    <div class="welcome-title">👋 您好，我是智能人事助手</div>
+    <div class="welcome-subtitle">输入您的问题，我来帮您解答</div>
+  </div>
+
+  <!-- 输入引导 -->
+  <div class="input-guide">
+    <div class="input-guide-icon">💬</div>
+    <div class="input-guide-text">试试输入："年假怎么算"<br>"请假流程是什么"</div>
+  </div>
+
+  <!-- 本月提醒 -->
+  <div class="card">
+    <div class="card-title">📌 本月提醒</div>
+    <div class="reminder-item">
+      <div class="reminder-icon">📅</div>
+      <div class="reminder-content">
+        <div class="reminder-label">考勤截止日期</div>
+        <div class="reminder-value">每月25日</div>
+      </div>
+    </div>
+    <div class="reminder-item">
+      <div class="reminder-icon">🎁</div>
+      <div class="reminder-content">
+        <div class="reminder-label">餐补发放日</div>
+        <div class="reminder-value">每月15日</div>
+      </div>
+    </div>
+    <div class="reminder-item">
+      <div class="reminder-icon">📋</div>
+      <div class="reminder-content">
+        <div class="reminder-label">本月转正提醒</div>
+        <div class="reminder-value">3位同事即将转正</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 政策速览 -->
+  <div class="card">
+    <div class="card-title">📖 政策速览</div>
+    <div class="policy-item">
+      <div class="policy-header">
+        <span class="policy-icon">🏖️</span>
+        <span class="policy-title">年假政策</span>
+      </div>
+      <div class="policy-desc">司龄1-10年：5天<br>司龄10年以上：10天</div>
+    </div>
+    <div class="policy-item">
+      <div class="policy-header">
+        <span class="policy-icon">⏰</span>
+        <span class="policy-title">考勤制度</span>
+      </div>
+      <div class="policy-desc">上班打卡时间：9:00<br>下班打卡时间：18:00</div>
+    </div>
+    <div class="policy-item">
+      <div class="policy-header">
+        <span class="policy-icon">🍽️</span>
+        <span class="policy-title">餐补标准</span>
+      </div>
+      <div class="policy-desc">工作日餐补：20元/天<br>每月随工资发放</div>
+    </div>
+  </div>
+
+  <!-- 热门话题 -->
+  <div class="card">
+    <div class="card-title">🔥 热门话题</div>
+    <div>
+      <span class="topic-tag">试用期考核</span>
+      <span class="topic-tag">离职交接</span>
+      <span class="topic-tag">社保公积金</span>
+      <span class="topic-tag">加班调休</span>
+      <span class="topic-tag">团建活动</span>
+      <span class="topic-tag">节日福利</span>
+    </div>
+  </div>
+
+  <!-- 联系HR -->
+  <div class="card">
+    <div class="card-title">📞 联系人力运营部</div>
+    <div class="contact-item">
+      <span class="contact-icon">📧</span>
+      <div>
+        <div class="contact-label">邮箱</div>
+        <div class="contact-value">hr@gnway.com</div>
+      </div>
+    </div>
+    <div class="contact-item">
+      <span class="contact-icon">📍</span>
+      <div>
+        <div class="contact-label">办公地点</div>
+        <div class="contact-value">总部人力运营部</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部提示 -->
+  <div class="footer-tip">
+    回复内容基于《金万维员工手册》2026年版
+  </div>
+</div>
