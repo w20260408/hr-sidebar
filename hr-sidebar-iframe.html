@@ -168,48 +168,114 @@
   </div>
   <script>
     function sendMessage(text) {
+      console.log('[HR助手] 准备发送:', text);
+      
+      // 1. 通过 postMessage 发送
       if (window.parent && window.parent !== window) {
         try {
           window.parent.postMessage({ type: 'sendChatMessage', content: text }, '*');
+          window.parent.postMessage({ action: 'send', message: text }, '*');
+          window.parent.postMessage({ from: 'hr-sidebar', text: text }, '*');
         } catch(e) {}
       }
+      
+      // 2. 查找输入框 - 更多帮我吧可能的选择器
       var inputSelectors = [
+        // 通用
+        'textarea',
+        'input[type="text"]',
+        'div[contenteditable="true"]',
+        // 帮我吧可能的选择器
+        '.chat-input textarea',
+        '.message-input textarea',
+        '.chat-textarea',
+        '.input-box textarea',
+        '.input-area textarea',
+        'textarea.chat-input',
+        'textarea.input',
+        // 按 placeholder
         'textarea[placeholder*="输入"]',
         'textarea[placeholder*="问题"]',
-        '.chat-input textarea',
+        'textarea[placeholder*="消息"]',
+        'input[placeholder*="输入"]',
+        'input[placeholder*="问题"]',
+        // 按 id/class
         '#messageInput',
+        '#chatInput',
+        '#msgInput',
         '.message-input',
-        'textarea.chat-textarea',
-        'div[contenteditable="true"]'
+        '.chat-input',
+        '.chat-input-box',
+        // 滚动容器内
+        '.chat-container textarea',
+        '.chat-window textarea',
+        '.conversation textarea'
       ];
+      
       var input = null;
       for (var i = 0; i < inputSelectors.length; i++) {
         try {
           input = window.parent.document.querySelector(inputSelectors[i]);
-          if (input) break;
+          if (input) {
+            console.log('[HR助手] 找到输入框:', inputSelectors[i]);
+            break;
+          }
         } catch(e) {}
       }
+      
       if (input) {
+        // 填充内容
         if (input.tagName === 'TEXTAREA' || input.tagName === 'INPUT') {
           input.value = text;
         } else if (input.contentEditable === 'true') {
           input.innerText = text;
         }
+        
         input.focus();
         input.dispatchEvent(new Event('input', { bubbles: true }));
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+        
+        // 延迟点击发送
         setTimeout(function() {
-          var btnSelectors = ['.send-btn', '.btn-send', 'button[type="submit"]', '.chat-send'];
+          // 查找发送按钮
+          var btnSelectors = [
+            'button.send',
+            '.send-btn',
+            '.btn-send',
+            '.chat-send',
+            '.message-send',
+            'button[type="submit"]',
+            '.submit-btn',
+            '.send',
+            'button:contains("发送")',
+            'button:contains("发送")',
+            // 帮我吧可能的选择器
+            '.chat-send-btn',
+            '.msg-send',
+            '.input-send',
+            'a.send',
+            '.bws-send'
+          ];
+          
+          var btn = null;
           for (var j = 0; j < btnSelectors.length; j++) {
             try {
-              var btn = window.parent.document.querySelector(btnSelectors[j]);
-              if (btn && !btn.disabled) {
-                btn.click();
-                return;
-              }
+              btn = window.parent.document.querySelector(btnSelectors[j]);
+              if (btn && !btn.disabled) break;
             } catch(e) {}
           }
-          input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', keyCode: 13, bubbles: true }));
+          
+          if (btn) {
+            btn.click();
+            console.log('[HR助手] 已点击发送按钮');
+          } else {
+            // 回车发送
+            input.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13, bubbles: true }));
+            console.log('[HR助手] 已触发回车发送');
+          }
         }, 100);
+      } else {
+        console.log('[HR助手] 未找到输入框');
       }
     }
   </script>
