@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>智能人事助手广告位 - 测试页面</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: #e8ecef;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .test-container {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .header {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .header h1 {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    .header p {
+      font-size: 13px;
+      color: #666;
+    }
+    .preview-section {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .preview-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .preview-title::before {
+      content: "";
+      width: 4px;
+      height: 16px;
+      background: #FF8C00;
+      border-radius: 2px;
+    }
+    #hr-assistant-sidebar {
+      min-height: 200px;
+    }
+    .chat-simulation {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .chat-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chat-title::before {
+      content: "";
+      width: 4px;
+      height: 16px;
+      background: #1890ff;
+      border-radius: 2px;
+    }
+    .chat-box {
+      background: #f5f6f7;
+      border-radius: 8px;
+      padding: 16px;
+      min-height: 120px;
+      margin-bottom: 12px;
+    }
+    .chat-placeholder {
+      color: #999;
+      font-size: 13px;
+      text-align: center;
+      padding: 30px;
+    }
+    .chat-input {
+      display: flex;
+      gap: 8px;
+    }
+    .chat-input textarea {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      resize: none;
+      height: 44px;
+      outline: none;
+    }
+    .chat-input textarea:focus {
+      border-color: #FF8C00;
+    }
+    .chat-input button {
+      padding: 0 20px;
+      background: #FF8C00;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .chat-input button:hover {
+      background: #e67d00;
+    }
+    .instructions {
+      background: #fff7e6;
+      border: 1px solid #ffd591;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+    .instructions h3 {
+      font-size: 14px;
+      color: #d48806;
+      margin-bottom: 10px;
+    }
+    .instructions ol {
+      font-size: 13px;
+      color: #8c6d1f;
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+    .instructions code {
+      background: #fff3cd;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: Consolas, Monaco, monospace;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="test-container">
+    <div class="header">
+      <h1>🔧 智能人事助手广告位测试</h1>
+      <p>点击右侧热门问题测试发送到聊天框效果</p>
+    </div>
+
+    <div class="preview-section">
+      <div class="preview-title">广告位预览</div>
+      <div id="hr-assistant-sidebar">
+        <div class="chat-placeholder">⏳ 正在加载广告位内容...</div>
+      </div>
+    </div>
+
+    <div class="chat-simulation">
+      <div class="chat-title">模拟聊天输入框</div>
+      <div class="chat-box" id="chatBox">
+        <div class="chat-placeholder">点击上方热门问题，内容会显示在这里</div>
+      </div>
+      <div class="chat-input">
+        <textarea id="messageInput" placeholder="输入消息..."></textarea>
+        <button onclick="alert('实际环境中消息将被发送')">发送</button>
+      </div>
+    </div>
+
+    <div class="instructions">
+      <h3>📋 使用说明</h3>
+      <ol>
+        <li>在帮我吧编辑器中创建一个<strong>段落</strong>或<strong>文本模块</strong></li>
+        <li>将容器的<strong>ID</strong>设置为 <code>hr-assistant-sidebar</code></li>
+        <li>在帮我吧的<strong>自定义脚本</strong>或<strong>全局JS</strong>中引入 <code>hr-sidebar-renderer.js</code></li>
+        <li>或者使用<strong>书签脚本</strong>：将 <code>hr-sidebar-bookmarklet.js</code> 的内容拖到书签栏</li>
+      </ol>
+    </div>
+  </div>
+
+  <script src="hr-sidebar-renderer.js"></script>
+</body>
+</html>
