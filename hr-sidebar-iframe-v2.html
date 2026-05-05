@@ -7,198 +7,270 @@
     html, body { height: 100%; overflow-x: hidden; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
-      background: #f5f6f7;
-      padding: 10px;
+      background: linear-gradient(180deg, #f8f9fa 0%, #eef1f4 100%);
+      padding: 12px;
       width: 100%;
     }
-    .container { width: 100%; min-height: 100%; }
+    .container { width: 100%; }
 
-    /* 欢迎区 */
-    .welcome-section {
-      background: linear-gradient(135deg, #FF8C00 0%, #FFB347 100%);
-      border-radius: 12px;
-      padding: 16px 14px;
+    /* 欢迎区 - 渐变卡片 */
+    .welcome-card {
+      background: linear-gradient(135deg, #FF8C00 0%, #FF6B35 100%);
+      border-radius: 16px;
+      padding: 20px 16px;
       color: #fff;
       margin-bottom: 12px;
-      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(255,140,0,0.3);
     }
-    .welcome-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-    .welcome-subtitle { font-size: 12px; opacity: 0.95; line-height: 1.4; }
+    .welcome-card::before {
+      content: "";
+      position: absolute;
+      top: -20px;
+      right: -20px;
+      width: 80px;
+      height: 80px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+    }
+    .welcome-card::after {
+      content: "";
+      position: absolute;
+      bottom: -30px;
+      left: -10px;
+      width: 100px;
+      height: 100px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 50%;
+    }
+    .welcome-icon { font-size: 28px; margin-bottom: 8px; }
+    .welcome-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .welcome-subtitle { font-size: 12px; opacity: 0.9; line-height: 1.4; }
 
     /* 输入引导 */
-    .input-guide {
+    .input-hint {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 14px;
       color: #fff;
       text-align: center;
       margin-bottom: 12px;
+      box-shadow: 0 3px 10px rgba(102,126,234,0.25);
     }
-    .input-guide-icon { font-size: 20px; margin-bottom: 6px; }
-    .input-guide-text { font-size: 12px; opacity: 0.95; line-height: 1.5; }
+    .input-hint-text { font-size: 12px; line-height: 1.6; }
 
-    /* 卡片通用样式 */
+    /* 通用卡片 */
     .card {
       background: #fff;
-      border-radius: 10px;
+      border-radius: 14px;
       padding: 14px;
-      margin-bottom: 12px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      margin-bottom: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
     .card-title {
       font-size: 13px;
       font-weight: 600;
-      color: #333;
+      color: #1a1a1a;
       margin-bottom: 10px;
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .card-title::before {
+    .card-title-icon { font-size: 14px; }
+    .card-title-text::before {
       content: "";
+      display: inline-block;
       width: 3px;
       height: 14px;
-      background: #FF8C00;
+      background: linear-gradient(180deg, #FF8C00, #FF6B35);
       border-radius: 2px;
+      margin-right: 6px;
+      vertical-align: middle;
     }
 
     /* 本月提醒 */
+    .reminder-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
     .reminder-item {
       display: flex;
-      align-items: flex-start;
-      padding: 8px 0;
-      border-bottom: 1px solid #f0f0f0;
+      align-items: center;
+      padding: 10px 12px;
+      background: #fafbfc;
+      border-radius: 10px;
+      border-left: 3px solid transparent;
+      transition: all 0.2s;
     }
-    .reminder-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .reminder-item:hover {
+      background: #fff7f0;
+      border-left-color: #FF8C00;
+    }
     .reminder-icon {
-      width: 24px;
-      height: 24px;
-      background: #FFF3E6;
-      border-radius: 6px;
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #FFF3E6 0%, #FFE4CC 100%);
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
-      margin-right: 10px;
-      flex-shrink: 0;
+      font-size: 14px;
+      margin-right: 12px;
     }
     .reminder-content { flex: 1; }
-    .reminder-label { font-size: 11px; color: #999; margin-bottom: 2px; }
+    .reminder-label { font-size: 11px; color: #8c8c8c; margin-bottom: 2px; }
     .reminder-value { font-size: 13px; color: #333; font-weight: 500; }
 
-    /* 政策速览 */
+    /* 政策卡片 */
+    .policy-list { display: flex; flex-direction: column; gap: 8px; }
     .policy-item {
-      background: #f8f9fa;
-      border-radius: 8px;
       padding: 12px;
-      margin-bottom: 8px;
+      background: linear-gradient(135deg, #fafbfc 0%, #f5f6f7 100%);
+      border-radius: 10px;
+      transition: all 0.2s;
     }
-    .policy-item:last-child { margin-bottom: 0; }
+    .policy-item:hover {
+      background: linear-gradient(135deg, #FFF7F0 0%, #FFF0E6 100%);
+    }
     .policy-header { display: flex; align-items: center; margin-bottom: 6px; }
-    .policy-icon { font-size: 14px; margin-right: 6px; }
+    .policy-icon { font-size: 16px; margin-right: 8px; }
     .policy-title { font-size: 13px; color: #333; font-weight: 500; }
-    .policy-desc { font-size: 12px; color: #666; line-height: 1.5; }
+    .policy-desc { font-size: 11px; color: #666; line-height: 1.5; }
 
     /* 热门话题 */
+    .topic-list { display: flex; flex-wrap: wrap; gap: 6px; }
     .topic-tag {
-      display: inline-block;
       padding: 6px 10px;
-      background: #F0F7FF;
+      background: linear-gradient(135deg, #F0F7FF 0%, #E6F0FF 100%);
       border-radius: 6px;
       font-size: 11px;
       color: #1677FF;
-      margin-right: 6px;
-      margin-bottom: 6px;
+      transition: all 0.2s;
+    }
+    .topic-tag:hover {
+      background: linear-gradient(135deg, #1677FF 0%, #0958D9 100%);
+      color: #fff;
     }
 
     /* 联系HR */
+    .contact-list { display: flex; flex-direction: column; gap: 8px; }
     .contact-item {
       display: flex;
       align-items: center;
-      padding: 10px;
-      background: #f8f9fa;
-      border-radius: 8px;
-      margin-bottom: 8px;
+      padding: 10px 12px;
+      background: linear-gradient(135deg, #fafbfc 0%, #f5f6f7 100%);
+      border-radius: 10px;
+      transition: all 0.2s;
     }
-    .contact-item:last-child { margin-bottom: 0; }
-    .contact-icon { font-size: 16px; margin-right: 10px; }
-    .contact-label { font-size: 11px; color: #999; }
+    .contact-item:hover {
+      background: linear-gradient(135deg, #E6F4FF 0%, #D9EDFF 100%);
+    }
+    .contact-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #E6F4FF 0%, #D9EDFF 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      margin-right: 12px;
+    }
+    .contact-label { font-size: 11px; color: #8c8c8c; }
     .contact-value { font-size: 12px; color: #333; font-weight: 500; }
 
-    /* 底部提示 */
-    .footer-tip { text-align: center; padding: 10px; font-size: 11px; color: #999; }
+    /* 底部 */
+    .footer {
+      text-align: center;
+      padding: 12px;
+      font-size: 10px;
+      color: #bfbfbf;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <!-- 欢迎区 -->
-    <div class="welcome-section">
-      <div class="welcome-title">👋 您好，我是智能人事助手</div>
+    <div class="welcome-card">
+      <div class="welcome-icon">👋</div>
+      <div class="welcome-title">智能人事助手</div>
       <div class="welcome-subtitle">输入您的问题，我来帮您解答</div>
     </div>
 
     <!-- 输入引导 -->
-    <div class="input-guide">
-      <div class="input-guide-icon">💬</div>
-      <div class="input-guide-text">试试输入："年假怎么算"<br>"请假流程是什么"</div>
+    <div class="input-hint">
+      <div class="input-hint-text">💡 试试发送："年假怎么算"<br>"请假流程是什么"</div>
     </div>
 
     <!-- 本月提醒 -->
     <div class="card">
-      <div class="card-title">📌 本月提醒</div>
-      <div class="reminder-item">
-        <div class="reminder-icon">📅</div>
-        <div class="reminder-content">
-          <div class="reminder-label">考勤截止日期</div>
-          <div class="reminder-value">每月25日</div>
-        </div>
+      <div class="card-title">
+        <span class="card-title-icon">📌</span>
+        <span class="card-title-text">本月提醒</span>
       </div>
-      <div class="reminder-item">
-        <div class="reminder-icon">🎁</div>
-        <div class="reminder-content">
-          <div class="reminder-label">餐补发放日</div>
-          <div class="reminder-value">每月15日</div>
+      <div class="reminder-list">
+        <div class="reminder-item">
+          <div class="reminder-icon">📅</div>
+          <div class="reminder-content">
+            <div class="reminder-label">考勤截止</div>
+            <div class="reminder-value">每月25日</div>
+          </div>
         </div>
-      </div>
-      <div class="reminder-item">
-        <div class="reminder-icon">🎂</div>
-        <div class="reminder-content">
-          <div class="reminder-label">本月寿星</div>
-          <div class="reminder-value">祝生日快乐！</div>
+        <div class="reminder-item">
+          <div class="reminder-icon">💰</div>
+          <div class="reminder-content">
+            <div class="reminder-label">餐补发放</div>
+            <div class="reminder-value">每月15日 · 20元/天</div>
+          </div>
+        </div>
+        <div class="reminder-item">
+          <div class="reminder-icon">🎂</div>
+          <div class="reminder-content">
+            <div class="reminder-label">本月寿星</div>
+            <div class="reminder-value">祝生日快乐！</div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- 政策速览 -->
     <div class="card">
-      <div class="card-title">📖 政策速览</div>
-      <div class="policy-item">
-        <div class="policy-header">
-          <span class="policy-icon">🏖️</span>
-          <span class="policy-title">年假政策</span>
-        </div>
-        <div class="policy-desc">司龄1-10年：5天<br>司龄10年以上：10天</div>
+      <div class="card-title">
+        <span class="card-title-icon">📖</span>
+        <span class="card-title-text">政策速览</span>
       </div>
-      <div class="policy-item">
-        <div class="policy-header">
-          <span class="policy-icon">⏰</span>
-          <span class="policy-title">考勤制度</span>
+      <div class="policy-list">
+        <div class="policy-item">
+          <div class="policy-header">
+            <span class="policy-icon">🏖️</span>
+            <span class="policy-title">年假政策</span>
+          </div>
+          <div class="policy-desc">司龄1-10年：5天 | 10年以上：10天</div>
         </div>
-        <div class="policy-desc">上班打卡时间：9:00<br>下班打卡时间：18:00</div>
-      </div>
-      <div class="policy-item">
-        <div class="policy-header">
-          <span class="policy-icon">🍽️</span>
-          <span class="policy-title">餐补标准</span>
+        <div class="policy-item">
+          <div class="policy-header">
+            <span class="policy-icon">⏰</span>
+            <span class="policy-title">考勤时间</span>
+          </div>
+          <div class="policy-desc">上班 9:00 · 下班 18:00</div>
         </div>
-        <div class="policy-desc">工作日餐补：20元/天<br>每月随工资发放</div>
       </div>
     </div>
 
     <!-- 热门话题 -->
     <div class="card">
-      <div class="card-title">🔥 热门话题</div>
-      <div>
+      <div class="card-title">
+        <span class="card-title-icon">🔥</span>
+        <span class="card-title-text">热门话题</span>
+      </div>
+      <div class="topic-list">
         <span class="topic-tag">试用期考核</span>
         <span class="topic-tag">离职交接</span>
         <span class="topic-tag">社保公积金</span>
@@ -210,25 +282,30 @@
 
     <!-- 联系HR -->
     <div class="card">
-      <div class="card-title">📞 联系人力运营部</div>
-      <div class="contact-item">
-        <span class="contact-icon">📧</span>
-        <div>
-          <div class="contact-label">邮箱</div>
-          <div class="contact-value">hr@gnway.com</div>
-        </div>
+      <div class="card-title">
+        <span class="card-title-icon">📞</span>
+        <span class="card-title-text">联系人力运营部</span>
       </div>
-      <div class="contact-item">
-        <span class="contact-icon">📍</span>
-        <div>
-          <div class="contact-label">办公地点</div>
-          <div class="contact-value">总部人力运营部</div>
+      <div class="contact-list">
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div>
+            <div class="contact-label">邮箱</div>
+            <div class="contact-value">hr@gnway.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-label">办公地点</div>
+            <div class="contact-value">总部人力运营部</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- 底部提示 -->
-    <div class="footer-tip">回复内容基于《金万维员工手册》2026年版</div>
+    <!-- 底部 -->
+    <div class="footer">基于《金万维员工手册》2026年版</div>
   </div>
 </body>
 </html>
