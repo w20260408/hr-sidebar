@@ -107,3 +107,9 @@
     }catch(e){}
   }
 </script>
+<script>
+  function postHeight(){window.parent.postMessage({type:'hr-sidebar-height',height:document.documentElement.scrollHeight},'*')}
+  window.addEventListener('load',postHeight);
+  window.addEventListener('resize',postHeight);
+  new MutationObserver(postHeight).observe(document.body, {childList:true,subtree:true});
+</script>
