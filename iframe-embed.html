@@ -9,13 +9,14 @@
     }
     iframe {
       width: 100%;
+      min-height: 100vh;
       border: none;
       display: block;
     }
   </style>
 </head>
 <body>
-  <iframe id="sidebar-frame" src="https://w20260408.github.io/hr-sidebar/hr-assistant-sidebar.html"></iframe>
+  <iframe id="sidebar-frame" src="https://w20260408.github.io/hr-sidebar/hr-sidebar-iframe-v2.html"></iframe>
   <script>
     window.addEventListener('message', function(e) {
       if (e.data && e.data.type === 'hr-sidebar-height') {
