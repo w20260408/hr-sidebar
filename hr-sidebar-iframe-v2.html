@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; overflow-x: hidden; }
+    html { height: auto; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
       background: linear-gradient(180deg, #f8f9fa 0%, #eef1f4 100%);
-      padding: 12px;
+      padding: 8px;
       width: 100%;
     }
     .container { width: 100%; }
@@ -16,81 +16,75 @@
     /* 欢迎区 - 渐变卡片 */
     .welcome-card {
       background: linear-gradient(135deg, #FF8C00 0%, #FF6B35 100%);
-      border-radius: 16px;
-      padding: 20px 16px;
+      border-radius: 10px;
+      padding: 10px 12px;
       color: #fff;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       position: relative;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(255,140,0,0.3);
+      box-shadow: 0 2px 8px rgba(255,140,0,0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
     .welcome-card::before {
       content: "";
       position: absolute;
-      top: -20px;
-      right: -20px;
-      width: 80px;
-      height: 80px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 50%;
-    }
-    .welcome-card::after {
-      content: "";
-      position: absolute;
-      bottom: -30px;
-      left: -10px;
-      width: 100px;
-      height: 100px;
+      top: -10px;
+      right: -10px;
+      width: 50px;
+      height: 50px;
       background: rgba(255,255,255,0.08);
       border-radius: 50%;
     }
-    .welcome-icon { font-size: 28px; margin-bottom: 8px; }
-    .welcome-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
-    .welcome-subtitle { font-size: 12px; opacity: 0.9; line-height: 1.4; }
+    .welcome-icon { font-size: 20px; flex-shrink: 0; }
+    .welcome-text { line-height: 1.2; }
+    .welcome-title { font-size: 13px; font-weight: 600; }
+    .welcome-subtitle { font-size: 10px; opacity: 0.85; }
 
     /* 输入引导 */
     .input-hint {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      border-radius: 12px;
-      padding: 14px;
+      border-radius: 10px;
+      padding: 10px;
       color: #fff;
       text-align: center;
-      margin-bottom: 12px;
-      box-shadow: 0 3px 10px rgba(102,126,234,0.25);
+      margin-bottom: 8px;
+      box-shadow: 0 2px 8px rgba(102,126,234,0.2);
     }
-    .input-hint-text { font-size: 12px; line-height: 1.6; }
+    .input-hint-text { font-size: 11px; line-height: 1.5; }
 
     /* 通用卡片 */
     .card {
       background: #fff;
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border-radius: 12px;
+      padding: 10px;
+      margin-bottom: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .card:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.07);
     }
     .card-title {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: #1a1a1a;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
     }
-    .card-title-icon { font-size: 14px; }
+    .card-title-icon { font-size: 13px; }
     .card-title-text::before {
       content: "";
       display: inline-block;
       width: 3px;
-      height: 14px;
+      height: 12px;
       background: linear-gradient(180deg, #FF8C00, #FF6B35);
       border-radius: 2px;
-      margin-right: 6px;
+      margin-right: 5px;
       vertical-align: middle;
     }
 
@@ -98,14 +92,14 @@
     .reminder-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 5px;
     }
     .reminder-item {
       display: flex;
       align-items: center;
-      padding: 10px 12px;
+      padding: 7px 8px;
       background: #fafbfc;
-      border-radius: 10px;
+      border-radius: 8px;
       border-left: 3px solid transparent;
       transition: all 0.2s;
     }
@@ -114,43 +108,44 @@
       border-left-color: #FF8C00;
     }
     .reminder-icon {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       background: linear-gradient(135deg, #FFF3E6 0%, #FFE4CC 100%);
-      border-radius: 8px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-      margin-right: 12px;
+      font-size: 13px;
+      margin-right: 8px;
+      flex-shrink: 0;
     }
-    .reminder-content { flex: 1; }
-    .reminder-label { font-size: 11px; color: #8c8c8c; margin-bottom: 2px; }
-    .reminder-value { font-size: 13px; color: #333; font-weight: 500; }
+    .reminder-content { flex: 1; min-width: 0; }
+    .reminder-label { font-size: 10px; color: #8c8c8c; margin-bottom: 1px; }
+    .reminder-value { font-size: 12px; color: #333; font-weight: 500; }
 
     /* 政策卡片 */
-    .policy-list { display: flex; flex-direction: column; gap: 8px; }
+    .policy-list { display: flex; flex-direction: column; gap: 5px; }
     .policy-item {
-      padding: 12px;
+      padding: 8px 10px;
       background: linear-gradient(135deg, #fafbfc 0%, #f5f6f7 100%);
-      border-radius: 10px;
+      border-radius: 8px;
       transition: all 0.2s;
     }
     .policy-item:hover {
       background: linear-gradient(135deg, #FFF7F0 0%, #FFF0E6 100%);
     }
-    .policy-header { display: flex; align-items: center; margin-bottom: 6px; }
-    .policy-icon { font-size: 16px; margin-right: 8px; }
-    .policy-title { font-size: 13px; color: #333; font-weight: 500; }
-    .policy-desc { font-size: 11px; color: #666; line-height: 1.5; }
+    .policy-header { display: flex; align-items: center; margin-bottom: 4px; }
+    .policy-icon { font-size: 14px; margin-right: 6px; }
+    .policy-title { font-size: 12px; color: #333; font-weight: 500; }
+    .policy-desc { font-size: 10px; color: #666; line-height: 1.4; }
 
     /* 热门话题 */
-    .topic-list { display: flex; flex-wrap: wrap; gap: 6px; }
+    .topic-list { display: flex; flex-wrap: wrap; gap: 4px; }
     .topic-tag {
-      padding: 6px 10px;
+      padding: 4px 8px;
       background: linear-gradient(135deg, #F0F7FF 0%, #E6F0FF 100%);
-      border-radius: 6px;
-      font-size: 11px;
+      border-radius: 5px;
+      font-size: 10px;
       color: #1677FF;
       transition: all 0.2s;
     }
@@ -160,39 +155,43 @@
     }
 
     /* 联系HR */
-    .contact-list { display: flex; flex-direction: column; gap: 8px; }
+    .contact-list { display: flex; flex-direction: column; gap: 5px; }
     .contact-item {
       display: flex;
       align-items: center;
-      padding: 10px 12px;
+      padding: 7px 8px;
       background: linear-gradient(135deg, #fafbfc 0%, #f5f6f7 100%);
-      border-radius: 10px;
+      border-radius: 8px;
       transition: all 0.2s;
     }
     .contact-item:hover {
       background: linear-gradient(135deg, #E6F4FF 0%, #D9EDFF 100%);
     }
     .contact-icon {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       background: linear-gradient(135deg, #E6F4FF 0%, #D9EDFF 100%);
-      border-radius: 8px;
+      border-radius: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-      margin-right: 12px;
+      font-size: 13px;
+      margin-right: 8px;
+      flex-shrink: 0;
     }
-    .contact-label { font-size: 11px; color: #8c8c8c; }
-    .contact-value { font-size: 12px; color: #333; font-weight: 500; }
+    .contact-label { font-size: 10px; color: #8c8c8c; }
+    .contact-value { font-size: 11px; color: #333; font-weight: 500; }
 
     /* 底部 */
     .footer {
       text-align: center;
-      padding: 12px;
-      font-size: 10px;
+      padding: 8px 0 4px;
+      font-size: 9px;
       color: #bfbfbf;
     }
+
+    /* iframe 自适应高度辅助 */
+    .height-probe { width: 0; height: 0; overflow: hidden; }
   </style>
 </head>
 <body>
@@ -200,8 +199,10 @@
     <!-- 欢迎区 -->
     <div class="welcome-card">
       <div class="welcome-icon">👋</div>
-      <div class="welcome-title">智能人事助手</div>
-      <div class="welcome-subtitle">输入您的问题，我来帮您解答</div>
+      <div class="welcome-text">
+        <div class="welcome-title">智能人事助手</div>
+        <div class="welcome-subtitle">输入您的问题，我来帮您解答</div>
+      </div>
     </div>
 
     <!-- 输入引导 -->
@@ -307,5 +308,14 @@
     <!-- 底部 -->
     <div class="footer">基于《金万维员工手册》2026年版</div>
   </div>
+  <script>
+    function postHeight() {
+      var h = document.documentElement.scrollHeight;
+      window.parent.postMessage({ type: 'hr-sidebar-height', height: h }, '*');
+    }
+    window.addEventListener('load', postHeight);
+    window.addEventListener('resize', postHeight);
+    new MutationObserver(postHeight).observe(document.body, { childList: true, subtree: true });
+  </script>
 </body>
 </html>
