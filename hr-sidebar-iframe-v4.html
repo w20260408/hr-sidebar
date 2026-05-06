@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { height: auto; overflow-y: auto; }
+    html { height: 100%; overflow: visible; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
       background: linear-gradient(180deg, #f8f9fa 0%, #eef1f4 100%);
       padding: 10px;
       width: 100%;
-      min-height: 100%;
-      overflow-x: hidden;
+      height: auto;
+      overflow: visible;
     }
     .container { width: 100%; }
 
@@ -261,23 +261,28 @@
     function postHeight() {
       requestAnimationFrame(function() {
         var bodyH = document.body.scrollHeight;
+        var bodyOH = document.body.offsetHeight;
         var docH = document.documentElement.scrollHeight;
-        var h = Math.max(bodyH, docH, 420); // 保底 420px
+        var docOH = document.documentElement.offsetHeight;
+        var h = Math.max(bodyH, bodyOH, docH, docOH);
         window.parent.postMessage({ type: 'hr-sidebar-height', height: h }, '*');
       });
     }
     function initHeightObserver() {
       postHeight();
-      var observer = new MutationObserver(function() {
-        setTimeout(postHeight, 100);
-      });
+      if (typeof ResizeObserver !== 'undefined') {
+        var ro = new ResizeObserver(function() { setTimeout(postHeight, 50); });
+        ro.observe(document.body);
+      }
+      var observer = new MutationObserver(function() { setTimeout(postHeight, 100); });
       observer.observe(document.body, { childList: true, subtree: true, characterData: true });
     }
     window.addEventListener('load', function() {
       initHeightObserver();
-      setTimeout(postHeight, 300);
-      setTimeout(postHeight, 800);
-      setTimeout(postHeight, 1500);
+      var delays = [100, 300, 500, 800, 1500, 3000];
+      for (var i = 0; i < delays.length; i++) {
+        (function(d) { setTimeout(postHeight, d); })(delays[i]);
+      }
     });
     window.addEventListener('resize', postHeight);
   </script>
