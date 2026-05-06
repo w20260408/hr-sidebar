@@ -274,23 +274,35 @@
         window.parent.postMessage({ type: 'hr-sidebar-height', height: h }, '*');
       });
     }
+    function tryAutoResize() {
+      try {
+        if (window.frameElement) {
+          window.frameElement.style.height = document.documentElement.scrollHeight + 'px';
+        }
+      } catch(e) {}
+      if (window !== window.parent) {
+        try {
+          window.parent.document.getElementById('hr-sidebar').style.height = document.documentElement.scrollHeight + 'px';
+        } catch(e) {}
+      }
+    }
     function initHeightObserver() {
       postHeight();
       if (typeof ResizeObserver !== 'undefined') {
-        var ro = new ResizeObserver(function() { setTimeout(postHeight, 50); });
+        var ro = new ResizeObserver(function() { setTimeout(postHeight, 50); tryAutoResize(); });
         ro.observe(document.body);
       }
-      var observer = new MutationObserver(function() { setTimeout(postHeight, 100); });
+      var observer = new MutationObserver(function() { setTimeout(postHeight, 100); tryAutoResize(); });
       observer.observe(document.body, { childList: true, subtree: true, characterData: true });
     }
     window.addEventListener('load', function() {
       initHeightObserver();
       var delays = [100, 300, 500, 800, 1500, 3000, 5000];
       for (var i = 0; i < delays.length; i++) {
-        (function(d) { setTimeout(postHeight, d); })(delays[i]);
+        (function(d) { setTimeout(function(){ postHeight(); tryAutoResize(); }, d); })(delays[i]);
       }
     });
-    window.addEventListener('resize', postHeight);
+    window.addEventListener('resize', function(){ postHeight(); tryAutoResize(); });
   </script>
 </body>
 </html>
