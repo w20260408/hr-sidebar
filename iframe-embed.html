@@ -9,12 +9,12 @@
   </style>
 </head>
 <body>
-  <iframe id="sidebar-frame" src="https://w20260408.github.io/hr-sidebar/hr-sidebar-iframe-v2.html"></iframe>
+  <iframe id="sidebar-frame" src="https://w20260408.github.io/hr-sidebar/hr-sidebar-iframe-v4.html"></iframe>
   <script>
     window.addEventListener('message', function(e) {
       if (e.data && e.data.type === 'hr-sidebar-height') {
         var f = document.getElementById('sidebar-frame');
-        f.style.height = e.data.height + 'px';
+        if (f) f.style.height = e.data.height + 'px';
       }
     });
   </script>
