@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { height: auto; overflow-y: auto; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: linear-gradient(180deg, #f8f9fa 0%, #eef1f4 100%);
+      padding: 10px;
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+    }
+    .container { width: 100%; }
+
+    /* 欢迎区 */
+    .welcome-card {
+      background: linear-gradient(135deg, #FF8C00 0%, #FF6B35 100%);
+      border-radius: 10px;
+      padding: 12px;
+      color: #fff;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(255,140,0,0.25);
+    }
+    .welcome-icon { font-size: 22px; flex-shrink: 0; }
+    .welcome-title { font-size: 14px; font-weight: 600; }
+    .welcome-subtitle { font-size: 11px; opacity: 0.85; }
+
+    /* 输入引导 */
+    .input-hint {
+      background: linear-gradient(135deg, #FFF3E6 0%, #FFE8D6 100%);
+      border-radius: 8px;
+      padding: 9px 12px;
+      color: #E65100;
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 11px;
+      line-height: 1.6;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .input-hint:hover { background: linear-gradient(135deg, #FFE8D6 0%, #FFD4B8 100%); }
+
+    /* 卡片通用 */
+    .card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .card-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .card-title-text::before {
+      content: "";
+      display: inline-block;
+      width: 3px; height: 13px;
+      background: linear-gradient(180deg, #FF8C00, #FF6B35);
+      border-radius: 2px;
+      margin-right: 5px;
+      vertical-align: middle;
+    }
+
+    /* 四大业务体 - 横排紧凑 */
+    .biz-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .biz-item {
+      flex: 1;
+      text-align: center;
+      padding: 7px 4px;
+      background: #FAF7F4;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .biz-item:hover { background: #FFF0E6; transform: translateY(-1px); }
+    .biz-icon { font-size: 18px; display: block; margin-bottom: 3px; }
+    .biz-name { font-size: 10px; color: #555; font-weight: 500; }
+
+    /* 核心模块 - 标签云 */
+    .module-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .module-tag {
+      padding: 5px 10px;
+      background: #FFF7F0;
+      border-radius: 15px;
+      font-size: 10px;
+      color: #E65100;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .module-tag:hover {
+      background: linear-gradient(135deg, #FF8C00, #E65100);
+      color: #fff;
+    }
+
+    /* AI能力 - 三列紧凑 */
+    .ai-row {
+      display: flex;
+      gap: 6px;
+    }
+    .ai-item {
+      flex: 1;
+      padding: 8px 6px;
+      border-radius: 8px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .ai-item:hover { transform: translateY(-1px); }
+    .ai-worker { background: linear-gradient(135deg, #FFF0E6, #FFE8D6); }
+    .ai-copilot { background: linear-gradient(135deg, #E6FBF9, #D4F5F2); }
+    .ai-insight { background: linear-gradient(135deg, #EEF2FE, #E4E8FD); }
+    .ai-badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 9px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .ai-badge-worker { background: linear-gradient(135deg, #FF8C00, #E65100); }
+    .ai-badge-copilot { background: linear-gradient(135deg, #36CFC9, #13C2C2); }
+    .ai-badge-insight { background: linear-gradient(135deg, #597EF7, #2F54EB); }
+    .ai-title { font-size: 10px; color: #333; font-weight: 600; line-height: 1.4; }
+    .ai-desc { font-size: 9px; color: #888; margin-top: 2px; line-height: 1.3; }
+
+    /* 热门问题 */
+    .topic-list { display: flex; flex-wrap: wrap; gap: 5px; }
+    .topic-tag {
+      padding: 4px 9px;
+      background: #FAFAFA;
+      border: 1px solid #EEE;
+      border-radius: 5px;
+      font-size: 10px;
+      color: #666;
+      transition: all 0.2s;
+    }
+    .topic-tag:hover {
+      border-color: #FF8C00;
+      color: #E65100;
+      background: #FFF7F0;
+    }
+
+    /* 底部 */
+    .footer {
+      text-align: center;
+      padding: 10px 0 6px;
+      font-size: 9px;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 欢迎区 -->
+    <div class="welcome-card">
+      <div class="welcome-icon">🤖</div>
+      <div class="welcome-text">
+        <div class="welcome-title">金万维智能助手</div>
+        <div class="welcome-subtitle">业务咨询 · 产品使用 · AI能力 · 问题解答</div>
+      </div>
+    </div>
+
+    <!-- 输入引导 -->
+    <div class="input-hint" onclick="this.style.display='none'">
+      💡 试试发送："帮我吧有哪些AI功能" 或 "数字员工怎么配置"
+    </div>
+
+    <!-- 四大业务体 -->
+    <div class="card">
+      <div class="card-title"><span class="card-title-text">金万维四大业务体</span></div>
+      <div class="biz-row">
+        <div class="biz-item">
+          <span class="biz-icon">🛒</span>
+          <span class="biz-name">选软件网</span>
+        </div>
+        <div class="biz-item">
+          <span class="biz-icon">☁️</span>
+          <span class="biz-name">云平台</span>
+        </div>
+        <div class="biz-item">
+          <span class="biz-icon">🎧</span>
+          <span class="biz-name">帮我吧</span>
+        </div>
+        <div class="biz-item">
+          <span class="biz-icon">🏛️</span>
+          <span class="biz-name">云信科技</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 帮我吧核心模块 -->
+    <div class="card">
+      <div class="card-title"><span class="card-title-text">帮我吧核心模块</span></div>
+      <div class="module-tags">
+        <span class="module-tag">📞 呼叫中心</span>
+        <span class="module-tag">💬 在线客服</span>
+        <span class="module-tag">🖥️ 远程协助</span>
+        <span class="module-tag">🎫 工单系统</span>
+        <span class="module-tag">👥 客户CRM</span>
+        <span class="module-tag">📦 资产管理</span>
+        <span class="module-tag">📚 知识库</span>
+        <span class="module-tag">📊 BI报表</span>
+        <span class="module-tag">⚙️ aPaaS无代码</span>
+        <span class="module-tag">🔗 iPaaS开放平台</span>
+        <span class="module-tag">🤖 AI智能体</span>
+      </div>
+    </div>
+
+    <!-- 三大AI能力 -->
+    <div class="card">
+      <div class="card-title"><span class="card-title-text">三大AI智能能力</span></div>
+      <div class="ai-row">
+        <div class="ai-item ai-worker">
+          <span class="ai-badge ai-badge-worker">数字员工</span>
+          <div class="ai-title">自主运行AI智能体</div>
+          <div class="ai-desc">文本/语音机器人<br>7×24自动获客</div>
+        </div>
+        <div class="ai-item ai-copilot">
+          <span class="ai-badge ai-badge-copilot">坐席辅助</span>
+          <div class="ai-title">人工客服协作</div>
+          <div class="ai-desc">答案推荐/小结<br>情绪预警/填单</div>
+        </div>
+        <div class="ai-item ai-insight">
+          <span class="ai-badge ai-badge-insight">数据洞察</span>
+          <div class="ai-title">智能数据分析</div>
+          <div class="ai-desc">全量质检/VOC<br>根因分析驱动</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 热门问题 -->
+    <div class="card">
+      <div class="card-title"><span class="card-title-text">热门问题</span></div>
+      <div class="topic-list">
+        <span class="topic-tag">远程协助连接失败怎么办</span>
+        <span class="topic-tag">外呼任务批量导入号码</span>
+        <span class="topic-tag">文本机器人如何配置</span>
+        <span class="topic-tag">BI看板权限说明</span>
+        <span class="topic-tag">工单自动分配规则</span>
+      </div>
+    </div>
+
+    <!-- 底部 -->
+    <div class="footer">金万维 · 让服务更高效</div>
+  </div>
+  <script>
+    function postHeight() {
+      var h = document.documentElement.scrollHeight;
+      window.parent.postMessage({ type: 'hr-sidebar-height', height: h }, '*');
+    }
+    window.addEventListener('load', function() { setTimeout(postHeight, 300); setTimeout(postHeight, 600); });
+    window.addEventListener('resize', postHeight);
+  </script>
+</body>
+</html>
