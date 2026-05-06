@@ -312,10 +312,10 @@
   </div>
   <script>
     function postHeight() {
-      var h = document.body.scrollHeight;
+      var h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
       window.parent.postMessage({ type: 'hr-sidebar-height', height: h }, '*');
     }
-    window.addEventListener('load', function() { setTimeout(postHeight, 100); });
+    window.addEventListener('load', function() { setTimeout(postHeight, 200); });
     window.addEventListener('resize', postHeight);
     new MutationObserver(postHeight).observe(document.body, { childList: true, subtree: true, attributes: true });
   </script>
