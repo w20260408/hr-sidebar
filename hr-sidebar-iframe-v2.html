@@ -15,7 +15,7 @@
     }
     .container { width: 100%; }
 
-    /* 欢迎区 - 橙色渐变卡片 */
+    /* 欢迎区 */
     .welcome-card {
       background: linear-gradient(135deg, #FF8C00 0%, #FF6B35 100%);
       border-radius: 10px;
@@ -32,10 +32,8 @@
     .welcome-card::before {
       content: "";
       position: absolute;
-      top: -10px;
-      right: -10px;
-      width: 50px;
-      height: 50px;
+      top: -10px; right: -10px;
+      width: 50px; height: 50px;
       background: rgba(255,255,255,0.08);
       border-radius: 50%;
     }
@@ -82,76 +80,101 @@
     .card-title-text::before {
       content: "";
       display: inline-block;
-      width: 3px;
-      height: 12px;
+      width: 3px; height: 12px;
       background: linear-gradient(180deg, #FF8C00, #FF6B35);
       border-radius: 2px;
       margin-right: 5px;
       vertical-align: middle;
     }
 
-    /* 业务导航 - 网格 */
-    .biz-grid {
+    /* 四大业务体 */
+    .biz4-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 6px;
     }
-    .biz-item {
+    .biz4-item {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 10px 6px;
+      padding: 8px;
       background: linear-gradient(135deg, #FFF8F3 0%, #FFF0E6 100%);
       border-radius: 8px;
       transition: all 0.2s;
-      cursor: pointer;
-      text-align: center;
     }
-    .biz-item:hover {
+    .biz4-item:hover {
       background: linear-gradient(135deg, #FFE8D6 0%, #FFD4B8 100%);
-      transform: scale(1.02);
     }
-    .biz-icon { font-size: 20px; margin-bottom: 4px; }
-    .biz-name { font-size: 11px; color: #333; font-weight: 500; }
-    .biz-desc { font-size: 9px; color: #888; margin-top: 2px; }
+    .biz4-icon {
+      font-size: 18px;
+      margin-right: 7px;
+      flex-shrink: 0;
+    }
+    .biz4-info { flex: 1; min-width: 0; }
+    .biz4-name { font-size: 11px; color: #333; font-weight: 600; }
+    .biz4-dept { font-size: 9px; color: #999; margin-top: 1px; }
+    .biz4-desc { font-size: 9px; color: #BB6600; margin-top: 1px; }
 
-    /* 快捷入口 */
-    .quick-list {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-    .quick-item {
+    /* 帮我吧核心模块 */
+    .module-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+    .module-tag {
+      padding: 5px 9px;
+      background: linear-gradient(135deg, #FFF3E6 0%, #FFE8D6 100%);
+      border-radius: 6px;
+      font-size: 10px;
+      color: #E65100;
+      font-weight: 500;
+      transition: all 0.2s;
       display: flex;
       align-items: center;
-      padding: 7px 8px;
+      gap: 3px;
+    }
+    .module-tag:hover {
+      background: linear-gradient(135deg, #FF8C00 0%, #E65100 100%);
+      color: #fff;
+    }
+    .module-tag-emo { font-size: 12px; }
+
+    /* AI能力体系 */
+    .ai-section { display: flex; flex-direction: column; gap: 5px; }
+    .ai-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 8px;
       background: #fafbfc;
       border-radius: 8px;
       border-left: 3px solid transparent;
       transition: all 0.2s;
     }
-    .quick-item:hover {
+    .ai-item:hover {
       background: #FFF7F0;
       border-left-color: #FF8C00;
     }
-    .quick-icon {
-      width: 28px;
-      height: 28px;
-      background: linear-gradient(135deg, #FFF3E6 0%, #FFE4CC 100%);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
+    .ai-badge {
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 9px;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
       margin-right: 8px;
       flex-shrink: 0;
+      margin-top: 1px;
     }
-    .quick-content { flex: 1; min-width: 0; }
-    .quick-label { font-size: 11px; color: #333; font-weight: 500; }
-    .quick-desc { font-size: 9px; color: #999; margin-top: 1px; }
+    .ai-badge-worker { background: linear-gradient(135deg, #FF8C00, #E65100); }
+    .ai-badge-copilot { background: linear-gradient(135deg, #36CFC9, #13C2C2); }
+    .ai-badge-insight { background: linear-gradient(135deg, #597EF7, #2F54EB); }
+    .ai-content { flex: 1; min-width: 0; }
+    .ai-title { font-size: 11px; color: #333; font-weight: 600; }
+    .ai-tags { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 3px; }
+    .ai-tag {
+      font-size: 9px;
+      padding: 1px 5px;
+      background: #f0f0f0;
+      border-radius: 3px;
+      color: #666;
+    }
 
-    /* 热门话题 */
+    /* 热门问题 */
     .topic-list { display: flex; flex-wrap: wrap; gap: 4px; }
     .topic-tag {
       padding: 4px 8px;
@@ -166,33 +189,6 @@
       color: #fff;
     }
 
-    /* 常用工具 */
-    .tool-list { display: flex; flex-direction: column; gap: 5px; }
-    .tool-item {
-      display: flex;
-      align-items: center;
-      padding: 7px 8px;
-      background: linear-gradient(135deg, #fafbfc 0%, #f5f6f7 100%);
-      border-radius: 8px;
-      transition: all 0.2s;
-    }
-    .tool-item:hover {
-      background: linear-gradient(135deg, #FFF7F0 0%, #FFF0E6 100%);
-    }
-    .tool-icon {
-      width: 26px;
-      height: 26px;
-      background: linear-gradient(135deg, #FFF3E6 0%, #FFE4CC 100%);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      margin-right: 8px;
-      flex-shrink: 0;
-    }
-    .tool-name { font-size: 11px; color: #333; font-weight: 500; }
-
     /* 底部 */
     .footer {
       text-align: center;
@@ -200,8 +196,6 @@
       font-size: 9px;
       color: #bfbfbf;
     }
-
-    /* iframe 自适应高度辅助 */
     .height-probe { width: 0; height: 0; overflow: hidden; }
   </style>
 </head>
@@ -212,87 +206,126 @@
       <div class="welcome-icon">🤖</div>
       <div class="welcome-text">
         <div class="welcome-title">金万维智能助手</div>
-        <div class="welcome-subtitle">业务咨询 · 产品使用 · 问题解答 · 效率工具</div>
+        <div class="welcome-subtitle">业务咨询 · 产品使用 · AI能力 · 问题解答</div>
       </div>
     </div>
 
     <!-- 输入引导 -->
     <div class="input-hint">
-      <div class="input-hint-text">💡 试试发送："远程协助怎么用"<br>"如何创建外呼任务"</div>
+      <div class="input-hint-text">💡 试试发送："帮我吧有哪些AI功能"<br>"数字员工怎么配置"</div>
     </div>
 
-    <!-- 业务导航 -->
+    <!-- 四大业务体 -->
     <div class="card">
       <div class="card-title">
-        <span class="card-title-icon">🚀</span>
-        <span class="card-title-text">业务中心</span>
+        <span class="card-title-icon">🏢</span>
+        <span class="card-title-text">金万维四大业务体</span>
       </div>
-      <div class="biz-grid">
-        <div class="biz-item">
-          <div class="biz-icon">📞</div>
-          <div class="biz-name">呼叫中心</div>
-          <div class="biz-desc">外呼/呼入 · 智能拨号</div>
+      <div class="biz4-grid">
+        <div class="biz4-item">
+          <div class="biz4-icon">🛒</div>
+          <div class="biz4-info">
+            <div class="biz4-name">售前 · 选软件网</div>
+            <div class="biz4-dept">选软件网事业部</div>
+            <div class="biz4-desc">软件选型平台，"找软件，上选软件网"</div>
+          </div>
         </div>
-        <div class="biz-item">
-          <div class="biz-icon">💬</div>
-          <div class="biz-name">在线聊天</div>
-          <div class="biz-desc">客服对话 · 多渠道接入</div>
+        <div class="biz4-item">
+          <div class="biz4-icon">☁️</div>
+          <div class="biz4-info">
+            <div class="biz4-name">售中 · 云平台</div>
+            <div class="biz4-dept">云平台事业部</div>
+            <div class="biz4-desc">私有云/公有云 · 天联/快解析/备无忧</div>
+          </div>
         </div>
-        <div class="biz-item">
-          <div class="biz-icon">🎫</div>
-          <div class="biz-name">工单系统</div>
-          <div class="biz-desc">问题追踪 · 流程流转</div>
+        <div class="biz4-item">
+          <div class="biz4-icon">🎧</div>
+          <div class="biz4-info">
+            <div class="biz4-name">售后 · 帮我吧</div>
+            <div class="biz4-dept">帮我吧事业部</div>
+            <div class="biz4-desc">全渠道智能客服平台</div>
+          </div>
         </div>
-        <div class="biz-item">
-          <div class="biz-icon">🖥️</div>
-          <div class="biz-name">远程协助</div>
-          <div class="biz-desc">远程控制 · 屏幕共享</div>
-        </div>
-        <div class="biz-item">
-          <div class="biz-icon">📊</div>
-          <div class="biz-name">BI看板</div>
-          <div class="biz-desc">数据报表 · 绩效分析</div>
-        </div>
-        <div class="biz-item">
-          <div class="biz-icon">📋</div>
-          <div class="biz-name">项目管理</div>
-          <div class="biz-desc">项目跟踪 · 任务协同</div>
+        <div class="biz4-item">
+          <div class="biz4-icon">🏛️</div>
+          <div class="biz4-info">
+            <div class="biz4-name">云信科技</div>
+            <div class="biz4-dept">云信科技</div>
+            <div class="biz4-desc">应用虚拟化 · 党政/央国企国产化适配</div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- 快捷入口 -->
+    <!-- 帮我吧核心模块 -->
     <div class="card">
       <div class="card-title">
-        <span class="card-title-icon">⚡</span>
-        <span class="card-title-text">快捷入口</span>
+        <span class="card-title-icon">🧩</span>
+        <span class="card-title-text">帮我吧核心模块</span>
       </div>
-      <div class="quick-list">
-        <div class="quick-item">
-          <div class="quick-icon">🤖</div>
-          <div class="quick-content">
-            <div class="quick-label">AI外呼助手</div>
-            <div class="quick-desc">创建外呼任务 · 配置机器人话术</div>
+      <div class="module-tags">
+        <span class="module-tag"><span class="module-tag-emo">📞</span>呼叫中心</span>
+        <span class="module-tag"><span class="module-tag-emo">💬</span>在线客服</span>
+        <span class="module-tag"><span class="module-tag-emo">🖥️</span>远程协助</span>
+        <span class="module-tag"><span class="module-tag-emo">🎫</span>工单系统</span>
+        <span class="module-tag"><span class="module-tag-emo">👥</span>客户CRM</span>
+        <span class="module-tag"><span class="module-tag-emo">📦</span>资产管理</span>
+        <span class="module-tag"><span class="module-tag-emo">📚</span>知识库</span>
+        <span class="module-tag"><span class="module-tag-emo">📊</span>BI报表</span>
+        <span class="module-tag"><span class="module-tag-emo">⚙️</span>aPaaS无代码</span>
+        <span class="module-tag"><span class="module-tag-emo">🔗</span>iPaaS开放平台</span>
+        <span class="module-tag"><span class="module-tag-emo">🤖</span>AI智能体</span>
+      </div>
+    </div>
+
+    <!-- 三大AI能力 -->
+    <div class="card">
+      <div class="card-title">
+        <span class="card-title-icon">✨</span>
+        <span class="card-title-text">三大AI智能能力</span>
+      </div>
+      <div class="ai-section">
+        <div class="ai-item">
+          <div class="ai-badge ai-badge-worker">数字员工</div>
+          <div class="ai-content">
+            <div class="ai-title">自主运行的AI智能体</div>
+            <div class="ai-tags">
+              <span class="ai-tag">文本机器人（7×24）</span>
+              <span class="ai-tag">语音机器人（外呼/呼入）</span>
+              <span class="ai-tag">留资获客 +45%</span>
+              <span class="ai-tag">售前导购 +65%</span>
+            </div>
           </div>
         </div>
-        <div class="quick-item">
-          <div class="quick-icon">📈</div>
-          <div class="quick-content">
-            <div class="quick-label">数据报表</div>
-            <div class="quick-desc">查看团队业绩 · 客服效率分析</div>
+        <div class="ai-item">
+          <div class="ai-badge ai-badge-copilot">坐席辅助</div>
+          <div class="ai-content">
+            <div class="ai-title">人工客服智能协作</div>
+            <div class="ai-tags">
+              <span class="ai-tag">智能答案推荐</span>
+              <span class="ai-tag">会话小结生成</span>
+              <span class="ai-tag">话术润色</span>
+              <span class="ai-tag">情绪预警</span>
+              <span class="ai-tag">智能填单</span>
+            </div>
           </div>
         </div>
-        <div class="quick-item">
-          <div class="quick-icon">👥</div>
-          <div class="quick-content">
-            <div class="quick-label">客户管理</div>
-            <div class="quick-desc">客户档案 · 联系记录 · 标签分组</div>
+        <div class="ai-item">
+          <div class="ai-badge ai-badge-insight">数据洞察</div>
+          <div class="ai-content">
+            <div class="ai-title">智能数据分析</div>
+            <div class="ai-tags">
+              <span class="ai-tag">100%全量质检</span>
+              <span class="ai-tag">客户之声VOC</span>
+              <span class="ai-tag">根因分析</span>
+              <span class="ai-tag">运营改进驱动</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 热门话题 -->
+    <!-- 热门问题 -->
     <div class="card">
       <div class="card-title">
         <span class="card-title-icon">🔥</span>
@@ -300,37 +333,11 @@
       </div>
       <div class="topic-list">
         <span class="topic-tag">远程协助连接失败怎么办</span>
-        <span class="topic-tag">外呼任务怎么批量导入号码</span>
-        <span class="topic-tag">聊天窗口外观配置方法</span>
+        <span class="topic-tag">外呼任务批量导入号码</span>
+        <span class="topic-tag">文本机器人如何配置</span>
         <span class="topic-tag">BI看板权限说明</span>
         <span class="topic-tag">工单自动分配规则</span>
-        <span class="topic-tag">微信公众号关键词回复</span>
-      </div>
-    </div>
-
-    <!-- 常用工具 -->
-    <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">🛠️</span>
-        <span class="card-title-text">常用工具</span>
-      </div>
-      <div class="tool-list">
-        <div class="tool-item">
-          <div class="tool-icon">📝</div>
-          <div class="tool-name">知识库搜索</div>
-        </div>
-        <div class="tool-item">
-          <div class="tool-icon">📅</div>
-          <div class="tool-name">工作日志</div>
-        </div>
-        <div class="tool-item">
-          <div class="tool-icon">📧</div>
-          <div class="tool-name">联系IT支持</div>
-        </div>
-        <div class="tool-item">
-          <div class="tool-icon">💡</div>
-          <div class="tool-name">功能建议反馈</div>
-        </div>
+        <span class="topic-tag">aPaaS搭建自定义流程</span>
       </div>
     </div>
 
